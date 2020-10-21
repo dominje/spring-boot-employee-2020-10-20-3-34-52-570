@@ -1,11 +1,13 @@
 package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -80,5 +82,25 @@ class CompanyServiceTest {
 
         // then
         Assertions.assertNotEquals(company.getCompanyName(), actual.getCompanyName());
+    }
+
+    @Test
+    public void should_get_employees_in_company_when_get_employees_given_company_id() {
+
+        // given
+        Company company = new Company(1, "Telus");
+        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
+
+        CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
+
+        when(companyRepository.getEmployeesByCompanyId(company.getCompanyId())).thenReturn(Collections.singletonList(employee));
+        CompanyService companyService = new CompanyService(companyRepository);
+
+        // when
+        List<Employee> actual = companyService.getEmployeesByCompanyId(company.getCompanyId());
+
+        // then
+        Assertions.assertEquals(company.getCompanyId(), actual.getCompanyId);
+
     }
 }
