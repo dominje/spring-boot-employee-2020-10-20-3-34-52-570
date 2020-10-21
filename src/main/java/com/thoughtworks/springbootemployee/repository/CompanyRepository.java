@@ -16,4 +16,11 @@ public class CompanyRepository {
         companyList.add(companyRequest);
         return companyRequest;
     }
+
+    public Company findCompanyById(int companyId) {
+        return companyList.stream()
+                .filter(company -> company.getCompanyId() == companyId)
+                .findFirst()
+                .orElse(null);
+    }
 }

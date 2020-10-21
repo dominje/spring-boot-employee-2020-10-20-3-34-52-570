@@ -20,4 +20,8 @@ public class CompanyService {
     public Company create(Company companyRequest) {
         return companyRepository.save(companyRequest);
     }
+
+    public Company getCompanyById(int companyId) {
+        return companyRepository.findCompanyById(companyId);
+    }
 }
