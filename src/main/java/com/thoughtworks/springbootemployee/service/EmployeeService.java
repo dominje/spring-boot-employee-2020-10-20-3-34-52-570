@@ -38,4 +38,8 @@ public class EmployeeService {
     public List<Employee> findByGender(String gender) {
         return repository.findByGender(gender);
     }
+
+    public List<Employee> setPagination(int page, int pageSize) {
+        return repository.setPagination(page, pageSize);
+    }
 }
