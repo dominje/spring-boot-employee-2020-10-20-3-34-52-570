@@ -28,4 +28,21 @@ class EmployeeServiceTest {
         // then
         Assertions.assertEquals(2, actual.size());
     }
+
+    @Test
+    void should_create_employee_when_create_given_employee_request() {
+
+        // given
+        Employee employeeRequest = new Employee(1, "Tom", 18, "Male", 1000);
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+
+        when(employeeRepository.save()).thenReturn(employeeRequest);
+        EmployeeService service = new EmployeeService(employeeRepository);
+
+        // when
+        Employee actual = service.save();
+
+        // then
+        Assertions.assertEquals(employeeRequest.getId(), actual.getId());
+    }
 }
