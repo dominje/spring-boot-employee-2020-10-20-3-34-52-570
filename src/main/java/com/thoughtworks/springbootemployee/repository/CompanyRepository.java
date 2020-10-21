@@ -11,4 +11,9 @@ public class CompanyRepository {
     public List<Company> findAll() {
         return companyList;
     }
+
+    public Company save(Company companyRequest) {
+        companyList.add(companyRequest);
+        return companyRequest;
+    }
 }

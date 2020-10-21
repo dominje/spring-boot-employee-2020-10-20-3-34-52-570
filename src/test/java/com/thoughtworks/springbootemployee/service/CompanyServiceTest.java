@@ -42,7 +42,7 @@ class CompanyServiceTest {
         Company actual = companyService.create(companyRequest);
 
         // then
-        Assertions.assertEquals(companyRequest.getId(), actual.getId());
+        Assertions.assertEquals(companyRequest.getCompanyId(), actual.getCompanyId());
     }
 
 }
