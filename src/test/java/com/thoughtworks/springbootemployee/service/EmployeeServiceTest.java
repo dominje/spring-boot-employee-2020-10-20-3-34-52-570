@@ -2,12 +2,12 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -137,14 +137,14 @@ class EmployeeServiceTest {
 
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
-        when(employeeRepository.findByGender(gender)).thenReturn(asList(femaleEmployee));
+        when(employeeRepository.findByGender(gender)).thenReturn(Collections.singletonList(femaleEmployee));
         EmployeeService service = new EmployeeService(employeeRepository);
 
         // when
         List<Employee> actual = service.findByGender(gender);
 
         // then
-        Assertions.assertEquals(asList(femaleEmployee), actual);
+        Assertions.assertEquals(Collections.singletonList(femaleEmployee), actual);
 
     }
 
