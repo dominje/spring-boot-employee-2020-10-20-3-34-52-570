@@ -18,4 +18,8 @@ public class EmployeeService {
     public List<Employee> getAll() {
         return repository.findAll();
     }
+
+    public Employee create(Employee employeeRequest) {
+        return repository.save(employeeRequest);
+    }
 }
