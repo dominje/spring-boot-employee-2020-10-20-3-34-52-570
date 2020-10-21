@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class CompanyServiceTest {
 
@@ -134,5 +134,21 @@ class CompanyServiceTest {
 
         // then
         Assertions.assertEquals(expectedCompanyList.size(), actual.size());
+    }
+
+    @Test
+    public void should_delete_employee_when_delete_given_id() {
+
+        // given
+        Company company = new Company(1, "Toyota");
+        CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
+        CompanyService companyService = new CompanyService(companyRepository);
+
+        // when
+        companyService.deleteEmployeesByCompanyId(company.getCompanyId());
+
+        // then
+        verify(companyRepository, times(1)).deleteEmployeesByCompanyId(company.getCompanyId());
+
     }
 }
