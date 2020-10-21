@@ -45,14 +45,11 @@ public class EmployeeController {
     public void deleteEmployeeById(@PathVariable int employeeID){
         service.deleteById(employeeID);
     }
-//
-//    @GetMapping(params = "gender")
-//    public List<Employee> getEmployeesByGender(@RequestParam String gender){
-//        return employees.stream()
-//                .filter(employee ->
-//                        employee.getGender().equalsIgnoreCase(gender))
-//                .collect(Collectors.toList());
-//    }
+
+    @GetMapping(params = "gender")
+    public List<Employee> getEmployeesByGender(@RequestParam String gender){
+        return service.findByGender(gender);
+    }
 //
 //    @GetMapping(params = {"page","pageSize"})
 //    public List<Employee> getEmployees(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
