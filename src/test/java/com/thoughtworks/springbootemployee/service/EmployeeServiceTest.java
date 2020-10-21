@@ -75,11 +75,11 @@ class EmployeeServiceTest {
 
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
-        when(employeeRepository.updateById(employee.getId())).thenReturn(updatedEmployee);
+        when(employeeRepository.updateById(employee.getId(), employee)).thenReturn(updatedEmployee);
         EmployeeService service = new EmployeeService(employeeRepository);
 
         // when
-        Employee actual = service.updateById(employee.getId());
+        Employee actual = service.updateById(employee.getId(), employee);
 
         // then
         Assertions.assertNotEquals(employee.getSalary(), actual.getSalary());
