@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class EmployeeServiceTest {
 
@@ -83,6 +83,25 @@ class EmployeeServiceTest {
 
         // then
         Assertions.assertNotEquals(employee.getSalary(), actual.getSalary());
+
+    }
+
+    @Test
+    public void should_delete_employee_when_delete_given_id(){
+
+        // given
+        Employee employee = new Employee(1, "Tom", 18, "Male", 1000);
+
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+
+        verify(employeeRepository, times(1)).deleteById(employee.getId());
+//        EmployeeService service = new EmployeeService(employeeRepository);
+
+//
+//        Employee actual = service.deleteById(employee.getId());
+//
+//        // then
+//        Assertions.assertNull(employee);
 
     }
 

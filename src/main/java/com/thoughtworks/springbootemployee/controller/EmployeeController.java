@@ -38,9 +38,9 @@ public class EmployeeController {
 
     @PutMapping("/{employeeID}")
     public Employee updateEmployeeById(@PathVariable int employeeID, @RequestBody Employee updatedEmployee) {
-        return updatedEmployee;
+        return service.updateById(employeeID, updatedEmployee);
     }
-//
+
 //    @DeleteMapping("/{employeeID}")
 //    public void deleteEmployeeById(@PathVariable int employeeID){
 //        employees.stream().filter( employee ->
