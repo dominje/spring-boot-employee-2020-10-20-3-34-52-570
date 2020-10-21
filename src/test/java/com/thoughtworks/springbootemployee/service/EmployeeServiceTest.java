@@ -36,7 +36,7 @@ class EmployeeServiceTest {
         Employee employeeRequest = new Employee(1, "Tom", 18, "Male", 1000);
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
-        when(employeeRepository.save()).thenReturn(employeeRequest);
+        when(employeeRepository.save(employeeRequest)).thenReturn(employeeRequest);
         EmployeeService service = new EmployeeService(employeeRepository);
 
         // when
