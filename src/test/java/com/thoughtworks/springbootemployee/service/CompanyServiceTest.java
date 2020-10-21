@@ -7,8 +7,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.when;
@@ -102,5 +105,34 @@ class CompanyServiceTest {
         // then
         Assertions.assertTrue(actual.contains(employee));
 
+    }
+
+    @Test
+    public void should_get_all_companies_when_set_pagination_given_page_and_pagesize() {
+
+        // given
+        int page = 2;
+        int pageSize = 5;
+        List<Company> companyList = new ArrayList<>();
+        companyList.add(new Company(1, "Toyota"));
+        companyList.add(new Company(2, "Mitsubishi"));
+        companyList.add(new Company(3, "Ferrari"));
+        companyList.add(new Company(4, "Apple"));
+        companyList.add(new Company(5, "Samsung"));
+        CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
+
+        List<Company> expectedCompanyList = companyList.stream().sorted(Comparator.comparing(Company::getCompanyId))
+                .skip(page)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+
+        when(companyRepository.setPagination(page, pageSize)).thenReturn(expectedCompanyList);
+        CompanyService companyService = new CompanyService(companyRepository);
+
+        // when
+        List<Company> actual = companyService.setPagination(page, pageSize);
+
+        // then
+        Assertions.assertEquals(expectedCompanyList.size(), actual.size());
     }
 }
