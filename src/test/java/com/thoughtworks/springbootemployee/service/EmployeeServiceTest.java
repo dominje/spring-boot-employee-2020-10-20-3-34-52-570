@@ -156,10 +156,10 @@ class EmployeeServiceTest {
         int pageSize = 5;
         List<Employee> employeeList = new ArrayList<>();
         employeeList.add(new Employee(1, "Tom", 18, "Male", 1000, 1));
-        employeeList.add(new Employee(2, "Tom", 18, "Male", 1000, 1));
-        employeeList.add(new Employee(3, "Tom", 18, "Male", 1000, 1));
-        employeeList.add(new Employee(4, "Tom", 18, "Male", 1000, 1));
-        employeeList.add(new Employee(5, "Tom", 18, "Male", 1000, 1));
+        employeeList.add(new Employee(2, "Jerry", 18, "Male", 1000, 1));
+        employeeList.add(new Employee(3, "Pooh", 18, "Male", 1000, 3));
+        employeeList.add(new Employee(4, "JJ", 18, "Male", 1000, 2));
+        employeeList.add(new Employee(5, "Yoyo", 18, "Female", 1000, 2));
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
         List<Employee> expectedEmployeeList = employeeList.stream().sorted(Comparator.comparing(Employee::getId))
