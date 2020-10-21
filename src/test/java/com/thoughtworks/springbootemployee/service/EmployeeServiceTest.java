@@ -37,7 +37,7 @@ class EmployeeServiceTest {
     void should_create_employee_when_create_given_employee_request() {
 
         // given
-        Employee employeeRequest = new Employee(1, "Tom", 18, "Male", 1000);
+        Employee employeeRequest = new Employee(1, "Tom", 18, "Male", 1000, 1);
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
         when(employeeRepository.save(employeeRequest)).thenReturn(employeeRequest);
@@ -54,7 +54,7 @@ class EmployeeServiceTest {
     public void should_get_employee_when_get_by_id_given_id() {
 
         // given
-        Employee employee = new Employee(1, "Tom", 18, "Male", 1000);
+        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
 
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
@@ -73,8 +73,8 @@ class EmployeeServiceTest {
     public void should_update_employee_when_update_by_id_given_id() {
 
         // given
-        Employee employee = new Employee(1, "Tom", 18, "Male", 1000);
-        Employee updatedEmployee = new Employee(1, "Tom", 18, "Male", 3000);
+        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
+        Employee updatedEmployee = new Employee(1, "Tom", 18, "Male", 3000, 1);
 
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
@@ -93,7 +93,7 @@ class EmployeeServiceTest {
     public void should_delete_employee_when_delete_given_id() {
 
         // given
-        Employee employee = new Employee(1, "Tom", 18, "Male", 1000);
+        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
         EmployeeService employeeService = new EmployeeService(employeeRepository);
 
@@ -111,8 +111,8 @@ class EmployeeServiceTest {
         // given
 
         String gender = "Male";
-        Employee firstMaleEmployee = new Employee(1, "Tom", 18, "Male", 1000);
-        Employee secondMaleEmployee = new Employee(1, "Pooh", 18, "Male", 1000);
+        Employee firstMaleEmployee = new Employee(1, "Tom", 18, "Male", 1000, 1);
+        Employee secondMaleEmployee = new Employee(1, "Pooh", 18, "Male", 1000, 1);
 
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
@@ -133,7 +133,7 @@ class EmployeeServiceTest {
         // given
 
         String gender = "Female";
-        Employee femaleEmployee = new Employee(1, "Jerry", 18, "Female", 1000);
+        Employee femaleEmployee = new Employee(1, "Jerry", 18, "Female", 1000,1 );
 
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
@@ -155,11 +155,11 @@ class EmployeeServiceTest {
         int page = 2;
         int pageSize = 5;
         List<Employee> employeeList = new ArrayList<>();
-        employeeList.add(new Employee(1, "Tom", 18, "Male", 1000));
-        employeeList.add(new Employee(2, "Tom", 18, "Male", 1000));
-        employeeList.add(new Employee(3, "Tom", 18, "Male", 1000));
-        employeeList.add(new Employee(4, "Tom", 18, "Male", 1000));
-        employeeList.add(new Employee(5, "Tom", 18, "Male", 1000));
+        employeeList.add(new Employee(1, "Tom", 18, "Male", 1000, 1));
+        employeeList.add(new Employee(2, "Tom", 18, "Male", 1000, 1));
+        employeeList.add(new Employee(3, "Tom", 18, "Male", 1000, 1));
+        employeeList.add(new Employee(4, "Tom", 18, "Male", 1000, 1));
+        employeeList.add(new Employee(5, "Tom", 18, "Male", 1000, 1));
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
         List<Employee> expectedEmployeeList = employeeList.stream().sorted(Comparator.comparing(Employee::getId))
