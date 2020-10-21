@@ -34,4 +34,8 @@ public class EmployeeService {
     public void deleteById(int employeeId) {
          repository.deleteById(employeeId);
     }
+
+    public List<Employee> findByGender(String gender) {
+        return repository.findByGender(gender);
+    }
 }
