@@ -8,7 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
@@ -146,4 +148,35 @@ class EmployeeServiceTest {
 
     }
 
+    @Test
+    public void should_get_all_employees_when_set_pagination_given_page_and_pagesize() {
+
+        // given
+        int page = 2;
+        int pageSize = 5;
+        List<Employee> employeeList = new ArrayList<>();
+        employeeList.add(new Employee(1, "Tom", 18, "Male", 1000));
+        employeeList.add(new Employee(2, "Tom", 18, "Male", 1000));
+        employeeList.add(new Employee(3, "Tom", 18, "Male", 1000));
+        employeeList.add(new Employee(4, "Tom", 18, "Male", 1000));
+        employeeList.add(new Employee(5, "Tom", 18, "Male", 1000));
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+
+        List<Employee> expectedEmployeeList = employeeList.stream().sorted(Comparator.comparing(Employee::getId))
+                .skip(page)
+                .limit(pageSize)
+                .collect(Collectors.toList());
+
+        when(employeeRepository.setPagination(page, pageSize)).thenReturn(expectedEmployeeList);
+        EmployeeService service = new EmployeeService(employeeRepository);
+
+        // when
+        List<Employee> actual = service.setPagination(page, pageSize);
+
+        // then
+        Assertions.assertEquals(3, actual.size());
+    }
+
 }
+
+
