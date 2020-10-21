@@ -2,6 +2,7 @@ package com.thoughtworks.springbootemployee.service;
 
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -91,17 +92,14 @@ class EmployeeServiceTest {
 
         // given
         Employee employee = new Employee(1, "Tom", 18, "Male", 1000);
-
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
 
+        // when
+        employeeService.deleteById(employee.getId());
+
+        // then
         verify(employeeRepository, times(1)).deleteById(employee.getId());
-//        EmployeeService service = new EmployeeService(employeeRepository);
-
-//
-//        Employee actual = service.deleteById(employee.getId());
-//
-//        // then
-//        Assertions.assertNull(employee);
 
     }
 
