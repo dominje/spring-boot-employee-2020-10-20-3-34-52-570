@@ -20,17 +20,29 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Employee createEmployee(@RequestBody Employee employee){
+    public Employee createEmployee(@RequestBody Employee employee) {
         employees.add(employee);
         return employee;
     }
 
     @GetMapping("/{employeeID}")
-    public Employee getEmployeeById(@PathVariable int employeeID){
+    public Employee getEmployeeById(@PathVariable int employeeID) {
         return employees.stream()
                 .filter(employee ->
-                    employee.getId() == employeeID
+                        employee.getId() == employeeID
                 ).findFirst().orElse(null);
+    }
+
+    @PutMapping("/{employeeID}")
+    public Employee updateEmployeeById(@PathVariable int employeeID, @RequestBody Employee updatedEmployee) {
+        employees.stream().filter(employee ->
+                employee.getId() == employeeID
+        ).findFirst().ifPresent(employee -> {
+                    employees.remove(employee);
+                    employees.add(updatedEmployee);
+                }
+        );
+        return updatedEmployee;
     }
 
 }
