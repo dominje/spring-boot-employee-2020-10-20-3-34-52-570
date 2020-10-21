@@ -22,14 +22,13 @@ public class EmployeeController {
 
     @GetMapping
     public List<Employee> getAllEmployees() {
-        return employees;
+        return service.getAll();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Employee createEmployee(@RequestBody Employee employee) {
-        employees.add(employee);
-        return employee;
+        return service.create(employee);
     }
 
 //    @GetMapping("/{employeeID}")
