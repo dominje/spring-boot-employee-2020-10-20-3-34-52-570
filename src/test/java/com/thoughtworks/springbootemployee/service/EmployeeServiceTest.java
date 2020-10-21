@@ -49,7 +49,7 @@ class EmployeeServiceTest {
     }
 
     @Test
-    public void should_get_employee_when_get_by_id_given_id(){
+    public void should_get_employee_when_get_by_id_given_id() {
 
         // given
         Employee employee = new Employee(1, "Tom", 18, "Male", 1000);
@@ -68,7 +68,7 @@ class EmployeeServiceTest {
     }
 
     @Test
-    public void should_update_employee_when_update_by_id_given_id(){
+    public void should_update_employee_when_update_by_id_given_id() {
 
         // given
         Employee employee = new Employee(1, "Tom", 18, "Male", 1000);
@@ -88,7 +88,7 @@ class EmployeeServiceTest {
     }
 
     @Test
-    public void should_delete_employee_when_delete_given_id(){
+    public void should_delete_employee_when_delete_given_id() {
 
         // given
         Employee employee = new Employee(1, "Tom", 18, "Male", 1000);
@@ -104,49 +104,45 @@ class EmployeeServiceTest {
     }
 
     @Test
-    public void should_get_all_male_employees_when_get_by_gender_given_male_gender(){
+    public void should_get_all_male_employees_when_get_by_gender_given_male_gender() {
 
         // given
 
         String gender = "Male";
-        Employee employee1 = new Employee(1, "Tom", 18, "Male", 1000);
-        Employee employee2 = new Employee(1, "Jerry", 18, "Female", 1000);
-        Employee employee3 = new Employee(1, "Pooh", 18, "Male", 1000);
+        Employee firstMaleEmployee = new Employee(1, "Tom", 18, "Male", 1000);
+        Employee secondMaleEmployee = new Employee(1, "Pooh", 18, "Male", 1000);
 
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
-        when(employeeRepository.findByGender(gender)).thenReturn(asList(employee1,employee3));
+        when(employeeRepository.findByGender(gender)).thenReturn(asList(firstMaleEmployee, secondMaleEmployee));
         EmployeeService service = new EmployeeService(employeeRepository);
 
         // when
         List<Employee> actual = service.findByGender(gender);
 
         // then
-        Assertions.assertEquals(asList(employee1,employee3), actual);
+        Assertions.assertEquals(asList(firstMaleEmployee, secondMaleEmployee), actual);
 
     }
 
     @Test
-    public void should_get_all_female_employees_when_get_by_gender_given_female_gender(){
+    public void should_get_all_female_employees_when_get_by_gender_given_female_gender() {
 
         // given
 
         String gender = "Female";
-        Employee employee1 = new Employee(1, "Tom", 18, "Male", 1000);
-        Employee employee2 = new Employee(1, "Jerry", 18, "Female", 1000);
-        Employee employee3 = new Employee(1, "Pooh", 18, "Male", 1000);
+        Employee femaleEmployee = new Employee(1, "Jerry", 18, "Female", 1000);
 
         EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
 
-        when(employeeRepository.findByGender(gender)).thenReturn(asList(employee2));
+        when(employeeRepository.findByGender(gender)).thenReturn(asList(femaleEmployee));
         EmployeeService service = new EmployeeService(employeeRepository);
 
         // when
         List<Employee> actual = service.findByGender(gender);
 
         // then
-        Assertions.assertEquals(asList(employee2), actual);
-
+        Assertions.assertEquals(asList(femaleEmployee), actual);
 
     }
 
