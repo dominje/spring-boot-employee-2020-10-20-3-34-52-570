@@ -41,12 +41,10 @@ public class EmployeeController {
         return service.updateById(employeeID, updatedEmployee);
     }
 
-//    @DeleteMapping("/{employeeID}")
-//    public void deleteEmployeeById(@PathVariable int employeeID){
-//        employees.stream().filter( employee ->
-//                employee.getId() == employeeID)
-//                .findFirst().ifPresent(employees::remove);
-//    }
+    @DeleteMapping("/{employeeID}")
+    public void deleteEmployeeById(@PathVariable int employeeID){
+        service.deleteById(employeeID);
+    }
 //
 //    @GetMapping(params = "gender")
 //    public List<Employee> getEmployeesByGender(@RequestParam String gender){
