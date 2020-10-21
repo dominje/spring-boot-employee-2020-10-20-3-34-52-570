@@ -103,4 +103,51 @@ class EmployeeServiceTest {
 
     }
 
+    @Test
+    public void should_get_all_male_employees_when_get_by_gender_given_male_gender(){
+
+        // given
+
+        String gender = "Male";
+        Employee employee1 = new Employee(1, "Tom", 18, "Male", 1000);
+        Employee employee2 = new Employee(1, "Jerry", 18, "Female", 1000);
+        Employee employee3 = new Employee(1, "Pooh", 18, "Male", 1000);
+
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+
+        when(employeeRepository.findByGender(gender)).thenReturn(asList(employee1,employee3));
+        EmployeeService service = new EmployeeService(employeeRepository);
+
+        // when
+        List<Employee> actual = service.findByGender(gender);
+
+        // then
+        Assertions.assertEquals(asList(employee1,employee3), actual);
+
+    }
+
+    @Test
+    public void should_get_all_female_employees_when_get_by_gender_given_female_gender(){
+
+        // given
+
+        String gender = "Female";
+        Employee employee1 = new Employee(1, "Tom", 18, "Male", 1000);
+        Employee employee2 = new Employee(1, "Jerry", 18, "Female", 1000);
+        Employee employee3 = new Employee(1, "Pooh", 18, "Male", 1000);
+
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+
+        when(employeeRepository.findByGender(gender)).thenReturn(asList(employee2));
+        EmployeeService service = new EmployeeService(employeeRepository);
+
+        // when
+        List<Employee> actual = service.findByGender(gender);
+
+        // then
+        Assertions.assertEquals(asList(employee2), actual);
+
+
+    }
+
 }
