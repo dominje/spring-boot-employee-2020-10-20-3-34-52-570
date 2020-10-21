@@ -18,4 +18,11 @@ public class EmployeeRepository {
         employeeList.add(employee);
         return employee;
     }
+
+    public Employee findById(int employeeId) {
+        return employeeList.stream().filter(employee ->
+                employee.getId() == employeeId)
+                .findFirst()
+                .orElse(null);
+    }
 }
