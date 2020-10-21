@@ -25,4 +25,15 @@ public class EmployeeRepository {
                 .findFirst()
                 .orElse(null);
     }
+
+    public Employee updateById(int employeeID, Employee updatedEmployee) {
+        employeeList.stream().filter(employee ->
+                employee.getId() == employeeID
+        ).findFirst().ifPresent(employee -> {
+            employeeList.remove(employee);
+            employeeList.add(updatedEmployee);
+                }
+        );
+        return updatedEmployee;
+    }
 }

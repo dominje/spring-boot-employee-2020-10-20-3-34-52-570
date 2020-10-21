@@ -36,17 +36,10 @@ public class EmployeeController {
         return service.findById(employeeID);
     }
 
-//    @PutMapping("/{employeeID}")
-//    public Employee updateEmployeeById(@PathVariable int employeeID, @RequestBody Employee updatedEmployee) {
-//        employees.stream().filter(employee ->
-//                employee.getId() == employeeID
-//        ).findFirst().ifPresent(employee -> {
-//                    employees.remove(employee);
-//                    employees.add(updatedEmployee);
-//                }
-//        );
-//        return updatedEmployee;
-//    }
+    @PutMapping("/{employeeID}")
+    public Employee updateEmployeeById(@PathVariable int employeeID, @RequestBody Employee updatedEmployee) {
+        return updatedEmployee;
+    }
 //
 //    @DeleteMapping("/{employeeID}")
 //    public void deleteEmployeeById(@PathVariable int employeeID){
@@ -68,5 +61,6 @@ public class EmployeeController {
 //        return employees.stream().sorted(Comparator.comparing(Employee::getId)).skip(page).limit(pageSize).collect(Collectors.toList());
 //    }
 //
+
 
 }
