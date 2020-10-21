@@ -1,9 +1,11 @@
 package com.thoughtworks.springbootemployee.repository;
 
 import com.thoughtworks.springbootemployee.model.Company;
+import com.thoughtworks.springbootemployee.model.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CompanyRepository {
     private final List<Company> companyList = new ArrayList<>();
@@ -33,5 +35,12 @@ public class CompanyRepository {
                     companyList.add(updatedCompany);
                 });
         return updatedCompany;
+    }
+
+    public List<Employee> getEmployeesByCompanyId(int companyId) {
+        EmployeeRepository employeeRepository = new EmployeeRepository();
+        return employeeRepository.findAll().stream()
+                .filter(employee -> employee.getCompanyId()==companyId)
+                .collect(Collectors.toList());
     }
 }

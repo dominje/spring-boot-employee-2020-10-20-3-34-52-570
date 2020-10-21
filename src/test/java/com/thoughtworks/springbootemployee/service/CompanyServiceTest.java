@@ -100,7 +100,7 @@ class CompanyServiceTest {
         List<Employee> actual = companyService.getEmployeesByCompanyId(company.getCompanyId());
 
         // then
-        Assertions.assertEquals(company.getCompanyId(), actual.getCompanyId);
+        Assertions.assertTrue(actual.contains(employee));
 
     }
 }
