@@ -65,4 +65,25 @@ class EmployeeServiceTest {
         Assertions.assertEquals(employee.getId(), actual.getId());
 
     }
+
+    @Test
+    public void should_update_employee_when_update_by_id_given_id(){
+
+        // given
+        Employee employee = new Employee(1, "Tom", 18, "Male", 1000);
+        Employee updatedEmployee = new Employee(1, "Tom", 18, "Male", 3000);
+
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+
+        when(employeeRepository.updateById(employee.getId())).thenReturn(updatedEmployee);
+        EmployeeService service = new EmployeeService(employeeRepository);
+
+        // when
+        Employee actual = service.updateById(employee.getId());
+
+        // then
+        Assertions.assertNotEquals(employee.getSalary(), actual.getSalary());
+
+    }
+
 }
