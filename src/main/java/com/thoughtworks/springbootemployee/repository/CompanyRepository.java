@@ -4,6 +4,7 @@ import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,14 @@ public class CompanyRepository {
         EmployeeRepository employeeRepository = new EmployeeRepository();
         return employeeRepository.findAll().stream()
                 .filter(employee -> employee.getCompanyId()==companyId)
+                .collect(Collectors.toList());
+    }
+
+    public List<Company> setPagination(int page, int pageSize) {
+        return companyList.stream()
+                .sorted(Comparator.comparing(Company::getCompanyId))
+                .skip(page)
+                .limit(pageSize)
                 .collect(Collectors.toList());
     }
 }

@@ -33,4 +33,8 @@ public class CompanyService {
     public List<Employee> getEmployeesByCompanyId(int companyId) {
         return companyRepository.getEmployeesByCompanyId(companyId);
     }
+
+    public List<Company> setPagination(int page, int pageSize) {
+        return companyRepository.setPagination(page, pageSize);
+    }
 }
