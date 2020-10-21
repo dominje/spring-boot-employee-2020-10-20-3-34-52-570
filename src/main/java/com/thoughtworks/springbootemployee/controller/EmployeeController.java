@@ -31,14 +31,11 @@ public class EmployeeController {
         return service.create(employee);
     }
 
-//    @GetMapping("/{employeeID}")
-//    public Employee getEmployeeById(@PathVariable int employeeID) {
-//        return employees.stream()
-//                .filter(employee ->
-//                        employee.getId() == employeeID
-//                ).findFirst().orElse(null);
-//    }
-//
+    @GetMapping("/{employeeID}")
+    public Employee getEmployeeById(@PathVariable int employeeID) {
+        return service.findById(employeeID);
+    }
+
 //    @PutMapping("/{employeeID}")
 //    public Employee updateEmployeeById(@PathVariable int employeeID, @RequestBody Employee updatedEmployee) {
 //        employees.stream().filter(employee ->
