@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,6 +68,11 @@ public class EmployeeController {
                 .filter(employee ->
                         employee.getGender().equalsIgnoreCase(gender))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(params = {"page","pageSize"})
+    public List<Employee> getEmployees(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
+        return employees.stream().sorted(Comparator.comparing(Employee::getId)).skip(page).limit(pageSize).collect(Collectors.toList());
     }
 
 
