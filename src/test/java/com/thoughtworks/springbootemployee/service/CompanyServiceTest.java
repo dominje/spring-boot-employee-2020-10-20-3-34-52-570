@@ -28,4 +28,21 @@ class CompanyServiceTest {
         Assertions.assertEquals(2, actual.size());
     }
 
+    @Test
+    void should_create_comapany_when_create_given_company_request() {
+
+        // given
+        Company companyRequest = new Company(1, "Telus");
+        CompanyRepository companyRepository = Mockito.mock(CompanyRepository.class);
+
+        when(companyRepository.save(companyRequest)).thenReturn(companyRequest);
+        CompanyService companyService = new CompanyService(companyRepository);
+
+        // when
+        Company actual = companyService.create(companyRequest);
+
+        // then
+        Assertions.assertEquals(companyRequest.getId(), actual.getId());
+    }
+
 }
