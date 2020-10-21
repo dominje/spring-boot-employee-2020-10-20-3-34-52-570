@@ -50,12 +50,12 @@ public class EmployeeController {
     public List<Employee> getEmployeesByGender(@RequestParam String gender){
         return service.findByGender(gender);
     }
-//
-//    @GetMapping(params = {"page","pageSize"})
-//    public List<Employee> getEmployees(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
-//        return employees.stream().sorted(Comparator.comparing(Employee::getId)).skip(page).limit(pageSize).collect(Collectors.toList());
-//    }
-//
+
+    @GetMapping(params = {"page","pageSize"})
+    public List<Employee> getEmployeesWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
+        return service.setPagination(page, pageSize);
+    }
+
 
 
 }
