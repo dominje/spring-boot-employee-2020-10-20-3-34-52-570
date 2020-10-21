@@ -52,4 +52,9 @@ public class CompanyRepository {
                 .limit(pageSize)
                 .collect(Collectors.toList());
     }
+
+    public void deleteEmployeesByCompanyId(int companyId) {
+        EmployeeRepository employeeRepository = new EmployeeRepository();
+        getEmployeesByCompanyId(companyId).forEach(employee -> employeeRepository.deleteById(employee.getId()));
+    }
 }
