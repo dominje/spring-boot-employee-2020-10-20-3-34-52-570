@@ -14,6 +14,14 @@ public class EmployeeController {
 
     private final List<Employee> employees = new ArrayList<>();
 
+    public EmployeeController() {
+        employees.add(new Employee(1,"tom", 21,"Male",8000));
+        employees.add(new Employee(2,"jerry", 22,"Female",7000));
+        employees.add(new Employee(3,"Shrek", 25,"Male",7000));
+        employees.add(new Employee(4,"Fiona", 23,"Female",7000));
+        employees.add(new Employee(5,"Donkey", 14,"Male",7000));
+    }
+
     @GetMapping
     public List<Employee> getAllEmployees() {
         return employees;
