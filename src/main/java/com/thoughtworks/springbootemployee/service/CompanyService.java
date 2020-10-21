@@ -24,4 +24,8 @@ public class CompanyService {
     public Company getCompanyById(int companyId) {
         return companyRepository.findCompanyById(companyId);
     }
+
+    public Company updateByCompanyId(int companyId, Company updatedCompany) {
+        return companyRepository.updateByCompanyId(companyId, updatedCompany);
+    }
 }
