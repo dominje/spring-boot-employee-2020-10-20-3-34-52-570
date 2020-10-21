@@ -30,4 +30,8 @@ public class EmployeeService {
     public Employee updateById(int id, Employee employee) {
         return repository.updateById(id, employee);
     }
+
+    public void deleteById(int employeeId) {
+         repository.deleteById(employeeId);
+    }
 }
