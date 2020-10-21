@@ -10,7 +10,15 @@ import java.util.stream.Collectors;
 
 @Repository
 public class EmployeeRepository {
-    private final List<Employee> employeeList = new ArrayList<>();
+    private List<Employee> employeeList = new ArrayList<>();
+
+    public EmployeeRepository() {
+        employeeList.add(new Employee(1, "Tom", 18, "Male", 1000, 1));
+        employeeList.add(new Employee(2, "Jerry", 18, "Male", 1000, 1));
+        employeeList.add(new Employee(3, "Pooh", 18, "Male", 1000, 3));
+        employeeList.add(new Employee(4, "JJ", 18, "Male", 1000, 2));
+        employeeList.add(new Employee(5, "Yoyo", 18, "Female", 1000, 2));
+    }
 
     public List<Employee> findAll() {
         return employeeList;

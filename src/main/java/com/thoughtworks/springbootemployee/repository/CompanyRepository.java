@@ -13,6 +13,14 @@ import java.util.stream.Collectors;
 public class CompanyRepository {
     private final List<Company> companyList = new ArrayList<>();
 
+    public CompanyRepository() {
+        companyList.add(new Company(1, "Toyota"));
+        companyList.add(new Company(2, "Mitsubishi"));
+        companyList.add(new Company(3, "Ferrari"));
+        companyList.add(new Company(4, "Apple"));
+        companyList.add(new Company(5, "Samsung"));
+    }
+
     public List<Company> findAll() {
         return companyList;
     }
