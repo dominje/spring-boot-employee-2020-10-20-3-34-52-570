@@ -40,7 +40,7 @@ class EmployeeServiceTest {
         EmployeeService service = new EmployeeService(employeeRepository);
 
         // when
-        Employee actual = service.save();
+        Employee actual = service.create(employeeRequest);
 
         // then
         Assertions.assertEquals(employeeRequest.getId(), actual.getId());
