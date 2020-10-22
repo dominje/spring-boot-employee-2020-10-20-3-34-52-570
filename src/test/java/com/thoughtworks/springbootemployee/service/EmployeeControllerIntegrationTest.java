@@ -5,6 +5,7 @@ import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -15,6 +16,8 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.result.RequestResultMatchers;
+
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 
@@ -86,4 +89,21 @@ public class EmployeeControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.company_id").value(1));
     }
 
+    @Test
+    public void should_find_employee_when_get_given_employee_id() throws Exception {
+
+        //given
+        Company company = new Company(1,"TomAndJerry");
+        Employee employee = new Employee(3, "Tom", 18, "Male", 1000, 1);
+        companyRepository.save(company);
+        employeeRepository.save(employee);
+
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.get("/employees", "employeeID"))
+                //then
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        Optional<Employee> foundEmployee = employeeRepository.findById(3);
+        Assertions.assertEquals("Tom", foundEmployee.get().getName());
+    }
 }
