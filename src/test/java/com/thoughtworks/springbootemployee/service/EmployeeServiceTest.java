@@ -89,22 +89,22 @@ class EmployeeServiceTest {
 //
 //    }
 //
-//    @Test
-//    public void should_delete_employee_when_delete_given_id() {
-//
-//        // given
-//        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
-//        EmployeeRepositoryLegacy employeeRepositoryLegacy = Mockito.mock(EmployeeRepositoryLegacy.class);
-//        EmployeeService employeeService = new EmployeeService(employeeRepositoryLegacy);
-//
-//        // when
-//        employeeService.deleteById(employee.getId());
-//
-//        // then
-//        verify(employeeRepositoryLegacy, times(1)).deleteById(employee.getId());
-//
-//    }
-//
+    @Test
+    public void should_delete_employee_when_delete_given_id() {
+
+        // given
+        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+        EmployeeService employeeService = new EmployeeService(employeeRepository);
+
+        // when
+        employeeService.deleteById(employee.getId());
+
+        // then
+        verify(employeeRepository, times(1)).deleteById(employee.getId());
+
+    }
+
 //    @Test
 //    public void should_get_all_male_employees_when_get_by_gender_given_male_gender() {
 //
