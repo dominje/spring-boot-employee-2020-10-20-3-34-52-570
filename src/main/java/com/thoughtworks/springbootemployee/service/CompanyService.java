@@ -24,23 +24,23 @@ public class CompanyService {
         return companyRepository.save(companyRequest);
     }
 
-    public Company getCompanyById(int companyId) {
-        return companyRepository.findCompanyById(companyId);
-    }
+//    public Company getCompanyById(int companyId) {
+//        return companyRepository.findAllById(companyId);
+//    }
 
-    public Company updateByCompanyId(int companyId, Company updatedCompany) {
-        return companyRepository.updateByCompanyId(companyId, updatedCompany);
-    }
-
-    public List<Employee> getEmployeesByCompanyId(int companyId) {
-        return companyRepository.getEmployeesByCompanyId(companyId);
-    }
-
-    public List<Company> setPagination(int page, int pageSize) {
-        return companyRepository.getCompanyWithPagination(page, pageSize);
-    }
-
-    public void deleteEmployeesByCompanyId(int companyId) {
-        companyRepository.deleteEmployeesByCompanyId(companyId);
-    }
+//    public Company updateByCompanyId(int companyId, Company updatedCompany) {
+//        return companyRepository.updateByCompanyId(companyId, updatedCompany);
+//    }
+//
+//    public List<Employee> getEmployeesByCompanyId(int companyId) {
+//        return companyRepository.getEmployeesByCompanyId(companyId);
+//    }
+//
+//    public List<Company> setPagination(int page, int pageSize) {
+//        return companyRepository.getCompanyWithPagination(page, pageSize);
+//    }
+//
+//    public void deleteEmployeesByCompanyId(int companyId) {
+//        companyRepository.deleteEmployeesByCompanyId(companyId);
+//    }
 }

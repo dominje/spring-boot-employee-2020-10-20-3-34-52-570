@@ -30,30 +30,30 @@ public class CompanyController {
         return companyService.create(company);
     }
 
-    @GetMapping("/{companyId}")
-    public Company getCompanyById(@PathVariable int companyId) {
-        return companyService.getCompanyById(companyId);
-    }
-
-    @GetMapping("/{companyId}/employees")
-    public List<Employee> getEmployeesByCompanyId(@PathVariable int companyId) {
-        return companyService.getEmployeesByCompanyId(companyId);
-    }
-
-    @PutMapping("/{companyId}")
-    public Company updateCompanyByCompanyId(@PathVariable int companyId, @RequestBody Company updatedCompany) {
-        return companyService.updateByCompanyId(companyId, updatedCompany);
-    }
-
-    @DeleteMapping("/{companyId}")
-    public void deleteEmployeesByCompanyId(@PathVariable int companyId){
-        companyService.deleteEmployeesByCompanyId(companyId);
-    }
-
-    @GetMapping(params = {"page","pageSize"})
-    public List<Company> getCompanyWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
-        return companyService.setPagination(page, pageSize);
-    }
+//    @GetMapping("/{companyId}")
+//    public Company getCompanyById(@PathVariable int companyId) {
+//        return companyService.getCompanyById(companyId);
+//    }
+//
+//    @GetMapping("/{companyId}/employees")
+//    public List<Employee> getEmployeesByCompanyId(@PathVariable int companyId) {
+//        return companyService.getEmployeesByCompanyId(companyId);
+//    }
+//
+//    @PutMapping("/{companyId}")
+//    public Company updateCompanyByCompanyId(@PathVariable int companyId, @RequestBody Company updatedCompany) {
+//        return companyService.updateByCompanyId(companyId, updatedCompany);
+//    }
+//
+//    @DeleteMapping("/{companyId}")
+//    public void deleteEmployeesByCompanyId(@PathVariable int companyId){
+//        companyService.deleteEmployeesByCompanyId(companyId);
+//    }
+//
+//    @GetMapping(params = {"page","pageSize"})
+//    public List<Company> getCompanyWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
+//        return companyService.setPagination(page, pageSize);
+//    }
 
 
 }
