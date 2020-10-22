@@ -18,5 +18,6 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     List<Company> findAll();
     Company save(Company company);
     Company findById(int companyId);
+    void deleteById(int companyId);
 
 }

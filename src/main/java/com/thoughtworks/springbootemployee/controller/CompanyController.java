@@ -45,10 +45,10 @@ public class CompanyController {
 //        return companyService.updateByCompanyId(companyId, updatedCompany);
 //    }
 //
-//    @DeleteMapping("/{companyId}")
-//    public void deleteEmployeesByCompanyId(@PathVariable int companyId){
-//        companyService.deleteEmployeesByCompanyId(companyId);
-//    }
+    @DeleteMapping("/{companyId}")
+    public void deleteEmployeesByCompanyId(@PathVariable int companyId){
+        companyService.deleteEmployeesByCompanyId(companyId);
+    }
 //
 //    @GetMapping(params = {"page","pageSize"})
 //    public List<Company> getCompanyWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){

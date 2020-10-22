@@ -40,7 +40,7 @@ public class CompanyService {
 //        return companyRepository.getCompanyWithPagination(page, pageSize);
 //    }
 //
-//    public void deleteEmployeesByCompanyId(int companyId) {
-//        companyRepository.deleteEmployeesByCompanyId(companyId);
-//    }
+    public void deleteEmployeesByCompanyId(int companyId) {
+        companyRepository.deleteById(companyId);
+    }
 }
