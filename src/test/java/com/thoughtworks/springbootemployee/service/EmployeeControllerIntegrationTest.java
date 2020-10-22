@@ -145,4 +145,27 @@ public class EmployeeControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
+
+    @Test
+    public void should_find_employee_when_find_given_gender() throws Exception {
+
+        //given
+        Company company = new Company(1,"TomAndJerry");
+        Employee employee1 = new Employee(6, "Tom", 18, "Male", 1000, 1);
+        Employee employee2 = new Employee(6, "Lola", 18, "Female", 1000, 1);
+        companyRepository.save(company);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.get("/employees?gender=Male"))
+                //then
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").isNumber())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Tom"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(18))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value("Male"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(1000))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].company_id").value(1));
+    }
 }
