@@ -47,11 +47,11 @@ public class EmployeeController {
     public List<Employee> getEmployeesByGender(@RequestParam String gender){
         return service.findByGender(gender);
     }
-//
-//    @GetMapping(params = {"page","pageSize"})
-//    public List<Employee> getEmployeesWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
-//        return service.setPagination(page, pageSize);
-//    }
+
+    @GetMapping(params = {"page","pageSize"})
+    public List<Employee> getEmployeesWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
+        return service.getEmployeesWithPagination(page, pageSize);
+    }
 
 
 
