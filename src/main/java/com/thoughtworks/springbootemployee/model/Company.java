@@ -1,9 +1,23 @@
 package com.thoughtworks.springbootemployee.model;
 
+import sun.jvm.hotspot.debugger.cdbg.basic.LazyType;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
 public class Company {
 
-    private String companyName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int companyId;
+    private String companyName;
+    @OneToMany
+            (
+                    fetch = FetchType.EAGER
+            )
+    @JoinColumn(name="company_id")
+    private List<Employee> employeeList;
 
     public Company() {
     }
