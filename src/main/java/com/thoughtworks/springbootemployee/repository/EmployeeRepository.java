@@ -9,5 +9,6 @@ public interface EmployeeRepository extends JpaRepository <Employee, Integer>{
 
     List<Employee> findAll();
     Employee save(Employee employee);
+    void deleteById(int employeeID);
 
 }
