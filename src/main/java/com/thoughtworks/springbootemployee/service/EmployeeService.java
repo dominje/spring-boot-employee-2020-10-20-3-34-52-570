@@ -5,6 +5,10 @@ import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
+import static java.util.Objects.isNull;
 
 @Service
 public class EmployeeService {
@@ -27,9 +31,18 @@ public class EmployeeService {
         return repository.findAllById(employeeId);
     }
 
-//    public Employee updateById(int id, Employee employee) {
-//        return repository.updateById(id, employee);
-//    }
+    public Employee updateById(int id, Employee employee) {
+        Optional<Employee> updatedEmployee = repository.findById(id);
+        if(updatedEmployee.isPresent()){
+            updatedEmployee.get().setAge(employee.getAge());
+            updatedEmployee.get().setCompany_id(employee.getCompany_id());
+            updatedEmployee.get().setGender(employee.getGender());
+            updatedEmployee.get().setSalary(employee.getSalary());
+            updatedEmployee.get().setName(employee.getName());
+            return repository.save(updatedEmployee.get());
+        }
+        return null;
+    }
 
     public void deleteById(int employeeId) {
          repository.deleteById(employeeId);
