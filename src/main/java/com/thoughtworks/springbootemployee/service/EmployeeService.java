@@ -23,23 +23,23 @@ public class EmployeeService {
         return repository.save(employeeRequest);
     }
 
-    public Employee findById(int employeeId) {
-        return repository.findById(employeeId);
-    }
+//    public Employee findById(int employeeId) {
+//        return repository.findById(employeeId);
+//    }
 
-    public Employee updateById(int id, Employee employee) {
-        return repository.updateById(id, employee);
-    }
+//    public Employee updateById(int id, Employee employee) {
+//        return repository.updateById(id, employee);
+//    }
 
     public void deleteById(int employeeId) {
          repository.deleteById(employeeId);
     }
 
-    public List<Employee> findByGender(String gender) {
-        return repository.findByGender(gender);
-    }
-
-    public List<Employee> setPagination(int page, int pageSize) {
-        return repository.getEmployeesWithPagination(page, pageSize);
-    }
+//    public List<Employee> findByGender(String gender) {
+//        return repository.findByGender(gender);
+//    }
+//
+//    public List<Employee> setPagination(int page, int pageSize) {
+//        return repository.getEmployeesWithPagination(page, pageSize);
+//    }
 }
