@@ -16,5 +16,5 @@ import java.util.stream.Collectors;
 public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
     List<Company> findAll();
-
+    Company save(Company company);
 }
