@@ -68,27 +68,27 @@ class EmployeeServiceTest {
         Assertions.assertEquals(employee.getId(), actual.getId());
 
     }
-//
-//    @Test
-//    public void should_update_employee_when_update_by_id_given_id() {
-//
-//        // given
-//        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
-//        Employee updatedEmployee = new Employee(1, "Tom", 18, "Male", 3000, 1);
-//
-//        EmployeeRepositoryLegacy employeeRepositoryLegacy = Mockito.mock(EmployeeRepositoryLegacy.class);
-//
-//        when(employeeRepositoryLegacy.updateById(employee.getId(), employee)).thenReturn(updatedEmployee);
-//        EmployeeService service = new EmployeeService(employeeRepositoryLegacy);
-//
-//        // when
-//        Employee actual = service.updateById(employee.getId(), employee);
-//
-//        // then
-//        Assertions.assertNotEquals(employee.getSalary(), actual.getSalary());
-//
-//    }
-//
+
+    @Test
+    public void should_update_employee_when_update_by_id_given_id() {
+
+        // given
+        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
+        Employee updatedEmployee = new Employee(1, "Tom", 18, "Male", 3000, 1);
+
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+
+        when(employeeRepository.updateByEmployeeId(employee.getId(), employee)).thenReturn(updatedEmployee);
+        EmployeeService service = new EmployeeService(employeeRepository);
+
+        // when
+        Employee actual = service.updateById(employee.getId(), employee);
+
+        // then
+        Assertions.assertNotEquals(employee.getSalary(), actual.getSalary());
+
+    }
+
     @Test
     public void should_delete_employee_when_delete_given_id() {
 
