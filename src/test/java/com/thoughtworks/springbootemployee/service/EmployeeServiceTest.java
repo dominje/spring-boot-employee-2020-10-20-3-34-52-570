@@ -50,24 +50,24 @@ class EmployeeServiceTest {
         Assertions.assertEquals(employeeRequest.getId(), actual.getId());
     }
 
-//    @Test
-//    public void should_get_employee_when_get_by_id_given_id() {
-//
-//        // given
-//        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
-//
-//        EmployeeRepositoryLegacy employeeRepositoryLegacy = Mockito.mock(EmployeeRepositoryLegacy.class);
-//
-//        when(employeeRepositoryLegacy.findById(employee.getId())).thenReturn(employee);
-//        EmployeeService service = new EmployeeService(employeeRepositoryLegacy);
-//
-//        // when
-//        Employee actual = service.findById(employee.getId());
-//
-//        // then
-//        Assertions.assertEquals(employee.getId(), actual.getId());
-//
-//    }
+    @Test
+    public void should_get_employee_when_get_by_id_given_id() {
+
+        // given
+        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
+
+        EmployeeRepository employeeRepository = Mockito.mock(EmployeeRepository.class);
+
+        when(employeeRepository.findAllById(employee.getId())).thenReturn(employee);
+        EmployeeService service = new EmployeeService(employeeRepository);
+
+        // when
+        Employee actual = service.findById(employee.getId());
+
+        // then
+        Assertions.assertEquals(employee.getId(), actual.getId());
+
+    }
 //
 //    @Test
 //    public void should_update_employee_when_update_by_id_given_id() {
