@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository <Employee, Integer>{
 
     List<Employee> findAll();
     Employee save(Employee employee);
     void deleteById(int employeeID);
-    Employee findAllById(int employeeID);
+    Optional<Employee> findById(int employeeID);
 
     @Query("select new Employee(id, name, age, gender, salary, company_id) from Employee where gender=:gender")
     List<Employee> findByGender(@Param("gender") String gender);

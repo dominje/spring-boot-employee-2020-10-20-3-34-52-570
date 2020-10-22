@@ -29,8 +29,12 @@ public class EmployeeService {
         return repository.save(employeeRequest);
     }
 
-    public Employee findById(int employeeId) {
-        return repository.findAllById(employeeId);
+    public Optional<Employee> findById(int employeeId) {
+        Optional<Employee> employee = repository.findById(employeeId);
+        if(employee.isPresent()){
+            return repository.findById(employee.get().getId());
+        }
+        return null;
     }
 
     public Employee updateById(int id, Employee employee) {
