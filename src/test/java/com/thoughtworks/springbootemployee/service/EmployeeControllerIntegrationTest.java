@@ -40,6 +40,30 @@ public class EmployeeControllerIntegrationTest {
     }
 
     @Test
+    public void should_delete_employee_when_delete_given_company_id() throws Exception {
+        //given
+        String employeeAsJson = "{\n" +
+                "    \"id\": 1,\n" +
+                "    \"name\": \"Lola\",\n" +
+                "    \"age\": 18,\n" +
+                "    \"gender\": \"Female\",\n" +
+                "    \"salary\": 2000.0,\n" +
+                "    \"company_id\": 1\n" +
+                "}";
+
+        Company company = new Company(1,"TomAndJerry");
+        companyRepository.save(company);
+        mockMvc.perform(MockMvcRequestBuilders.post("/employees")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(employeeAsJson));
+
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.delete("/employees/{employeeID}", 4))
+                //then
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
     public void should_get_all_employees_when_get() throws Exception {
 
         //given
@@ -130,23 +154,6 @@ public class EmployeeControllerIntegrationTest {
     }
 
     @Test
-    public void should_delete_employee_when_delete_given_company_id() throws Exception {
-
-        //given
-
-        Company company = new Company(1,"TomAndJerry");
-        Employee employee = new Employee(5, "Tom", 18, "Male", 1000, 1);
-        companyRepository.save(company);
-        employeeRepository.save(employee);
-
-        //when
-        mockMvc.perform(MockMvcRequestBuilders.delete("/employees/{employeeID}", 1))
-                //then
-                .andExpect(MockMvcResultMatchers.status().isOk());
-
-    }
-
-    @Test
     public void should_find_employee_when_find_given_gender() throws Exception {
 
         //given
@@ -167,5 +174,36 @@ public class EmployeeControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value("Male"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(1000))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].company_id").value(1));
+    }
+
+    @Test
+    public void should_find_employees_when_find_given_page_and_page_size() throws Exception {
+
+        //given
+        Company company = new Company(1,"TomAndJerry");
+        Employee employee1 = new Employee(7, "Tom", 18, "Male", 1000, 1);
+        Employee employee2 = new Employee(7, "Lola", 18, "Female", 1000, 1);
+        Employee employee3 = new Employee(7, "Nina", 18, "Female", 1000, 1);
+        companyRepository.save(company);
+        employeeRepository.save(employee1);
+        employeeRepository.save(employee2);
+        employeeRepository.save(employee3);
+
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.get("/employees?page=1&pageSize=2"))
+                //then
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").isNumber())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Tom"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(18))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value("Male"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(1000))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].company_id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").isNumber())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Lola"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].age").value(18))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].gender").value("Female"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].salary").value(1000))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].company_id").value(1));
     }
 }
