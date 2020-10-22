@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CompanyService {
@@ -26,14 +27,20 @@ public class CompanyService {
         return companyRepository.save(companyRequest);
     }
 
-    public Company getCompanyById(int companyId) {
+    public Optional<Company> getCompanyById(int companyId) {
         return companyRepository.findById(companyId);
     }
 
-//    public Company updateByCompanyId(int companyId, Company updatedCompany) {
-//        return companyRepository.updateByCompanyId(companyId, updatedCompany);
-//    }
-//
+    public Company updateByCompanyId(int companyId, Company company) {
+        Optional<Company> updatedCompany = companyRepository.findById(companyId);
+        if(updatedCompany.isPresent()){
+            updatedCompany.get().setCompanyId(company.getCompanyId());
+            updatedCompany.get().setCompanyName(company.getCompanyName());
+            return companyRepository.save(updatedCompany.get());
+        }
+        return null;
+    }
+
 //    public List<Employee> getEmployeesByCompanyId(int companyId) {
 //        return companyRepository.getEmployeesByCompanyId(companyId);
 //    }

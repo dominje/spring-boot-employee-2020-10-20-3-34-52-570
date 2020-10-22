@@ -1,13 +1,12 @@
 package com.thoughtworks.springbootemployee.controller;
 
 import com.thoughtworks.springbootemployee.model.Company;
-import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.service.CompanyService;
-import com.thoughtworks.springbootemployee.service.EmployeeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/companies")
@@ -31,7 +30,7 @@ public class CompanyController {
     }
 
     @GetMapping("/{companyId}")
-    public Company getCompanyById(@PathVariable int companyId) {
+    public Optional<Company> getCompanyById(@PathVariable int companyId) {
         return companyService.getCompanyById(companyId);
     }
 //
@@ -40,11 +39,11 @@ public class CompanyController {
 //        return companyService.getEmployeesByCompanyId(companyId);
 //    }
 //
-//    @PutMapping("/{companyId}")
-//    public Company updateCompanyByCompanyId(@PathVariable int companyId, @RequestBody Company updatedCompany) {
-//        return companyService.updateByCompanyId(companyId, updatedCompany);
-//    }
-//
+    @PutMapping("/{companyId}")
+    public Company updateCompanyByCompanyId(@PathVariable int companyId, @RequestBody Company updatedCompany) {
+        return companyService.updateByCompanyId(companyId, updatedCompany);
+    }
+
     @DeleteMapping("/{companyId}")
     public void deleteEmployeesByCompanyId(@PathVariable int companyId){
         companyService.deleteEmployeesByCompanyId(companyId);

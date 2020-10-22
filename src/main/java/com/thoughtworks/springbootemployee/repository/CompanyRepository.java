@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -17,7 +18,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
     List<Company> findAll();
     Company save(Company company);
-    Company findById(int companyId);
+    Optional<Company> findById(int companyId);
     void deleteById(int companyId);
 
 
