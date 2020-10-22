@@ -49,11 +49,11 @@ public class CompanyController {
     public void deleteEmployeesByCompanyId(@PathVariable int companyId){
         companyService.deleteEmployeesByCompanyId(companyId);
     }
-//
-//    @GetMapping(params = {"page","pageSize"})
-//    public List<Company> getCompanyWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
-//        return companyService.setPagination(page, pageSize);
-//    }
+
+    @GetMapping(params = {"page","pageSize"})
+    public List<Company> getCompanyWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){
+        return companyService.getCompanyWithPagination(page, pageSize);
+    }
 
 
 }
