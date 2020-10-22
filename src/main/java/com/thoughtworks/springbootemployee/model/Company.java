@@ -1,7 +1,5 @@
 package com.thoughtworks.springbootemployee.model;
 
-import sun.jvm.hotspot.debugger.cdbg.basic.LazyType;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -41,5 +39,9 @@ public class Company {
 
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
+    }
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
     }
 }

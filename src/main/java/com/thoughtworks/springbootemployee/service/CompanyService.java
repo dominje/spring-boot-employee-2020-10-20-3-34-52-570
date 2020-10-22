@@ -3,6 +3,7 @@ package com.thoughtworks.springbootemployee.service;
 import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
+import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,10 +42,11 @@ public class CompanyService {
         return null;
     }
 
-//    public List<Employee> getEmployeesByCompanyId(int companyId) {
-//        return companyRepository.getEmployeesByCompanyId(companyId);
-//    }
-//
+    public List<Employee> getEmployeesByCompanyId(int companyId) {
+        Optional<Company> foundCompany = companyRepository.findById(companyId);
+        return foundCompany.map(Company::getEmployeeList).orElse(null);
+    }
+
     public List<Company> getCompanyWithPagination(int page, int pageSize) {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         return companyRepository.findAll(pageable).toList();
