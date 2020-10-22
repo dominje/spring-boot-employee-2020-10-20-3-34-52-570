@@ -4,10 +4,12 @@ import com.thoughtworks.springbootemployee.model.Company;
 import com.thoughtworks.springbootemployee.model.Employee;
 import com.thoughtworks.springbootemployee.repository.CompanyRepository;
 import com.thoughtworks.springbootemployee.repository.EmployeeRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -29,6 +31,11 @@ public class EmployeeControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @AfterEach
+    void tearDown(){
+        employeeRepository.deleteAll();
+    }
+
     @Test
     public void should_get_all_employees_when_get() throws Exception {
 
@@ -48,6 +55,35 @@ public class EmployeeControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value("Male"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(1000))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].company_id").value(1));
+    }
+
+    @Test
+    public void should_create_employee_when_create_given_employee_request() throws Exception {
+        //given
+        String employeeAsJson = "{\n" +
+                "    \"id\": 2,\n" +
+                "    \"name\": \"Lola\",\n" +
+                "    \"age\": 18,\n" +
+                "    \"gender\": \"Female\",\n" +
+                "    \"salary\": 2000.0,\n" +
+                "    \"company_id\": 1\n" +
+                "}";
+
+        Company company = new Company(1,"TomAndJerry");
+        companyRepository.save(company);
+
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.post("/employees")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(employeeAsJson))
+                //then
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNumber())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Lola"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(18))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value("Female"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(2000))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.company_id").value(1));
     }
 
 }
