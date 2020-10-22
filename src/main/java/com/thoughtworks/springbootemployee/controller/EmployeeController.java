@@ -32,21 +32,21 @@ public class EmployeeController {
     public Employee getEmployeeById(@PathVariable int employeeID) {
         return service.findById(employeeID);
     }
-//
-//    @PutMapping("/{employeeID}")
-//    public Employee updateEmployeeById(@PathVariable int employeeID, @RequestBody Employee updatedEmployee) {
-//        return service.updateById(employeeID, updatedEmployee);
-//    }
+
+    @PutMapping("/{employeeID}")
+    public Employee updateEmployeeById(@PathVariable int employeeID, @RequestBody Employee updatedEmployee) {
+        return service.updateById(employeeID, updatedEmployee);
+    }
 
     @DeleteMapping("/{employeeID}")
     public void deleteEmployeeById(@PathVariable int employeeID){
         service.deleteById(employeeID);
     }
 
-//    @GetMapping(params = "gender")
-//    public List<Employee> getEmployeesByGender(@RequestParam String gender){
-//        return service.findByGender(gender);
-//    }
+    @GetMapping(params = "gender")
+    public List<Employee> getEmployeesByGender(@RequestParam String gender){
+        return service.findByGender(gender);
+    }
 //
 //    @GetMapping(params = {"page","pageSize"})
 //    public List<Employee> getEmployeesWithPagination(@RequestParam("page") int page, @RequestParam("pageSize") int pageSize){

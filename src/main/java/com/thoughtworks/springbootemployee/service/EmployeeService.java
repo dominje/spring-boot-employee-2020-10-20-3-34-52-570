@@ -48,9 +48,9 @@ public class EmployeeService {
          repository.deleteById(employeeId);
     }
 
-//    public List<Employee> findByGender(String gender) {
-//        return repository.findByGender(gender);
-//    }
+    public List<Employee> findByGender(String gender) {
+        return repository.findByGender(gender);
+    }
 //
 //    public List<Employee> setPagination(int page, int pageSize) {
 //        return repository.getEmployeesWithPagination(page, pageSize);
