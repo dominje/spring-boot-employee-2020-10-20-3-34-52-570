@@ -99,11 +99,57 @@ public class EmployeeControllerIntegrationTest {
         employeeRepository.save(employee);
 
         //when
-        mockMvc.perform(MockMvcRequestBuilders.get("/employees", "employeeID"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/employees/{employeeID}",3))
+                //then
+                .andExpect(MockMvcResultMatchers.status().isOk());
+//
+//        Optional<Employee> foundEmployee = employeeRepository.findById(3);
+//        Assertions.assertEquals("Tom", foundEmployee.get().getName());
+    }
+
+//    @Test
+//    public void should_update_employee_when_update_given_employee_id() throws Exception {
+//        //given
+//        String employeeAsJson = "{\n" +
+//                "    \"id\": 4,\n" +
+//                "    \"name\": \"Lola\",\n" +
+//                "    \"age\": 18,\n" +
+//                "    \"gender\": \"Female\",\n" +
+//                "    \"salary\": 2000.0,\n" +
+//                "    \"company_id\": 1\n" +
+//                "}";
+//
+//        Company company = new Company(1,"TomAndJerry");
+//        Employee employee = new Employee(4, "Tom", 18, "Male", 1000, 1);
+//        companyRepository.save(company);
+//        employeeRepository.save(employee);
+//
+//        //when
+//        mockMvc.perform(MockMvcRequestBuilders.put("/employees")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(employeeAsJson))
+//                //then
+//                .andExpect(MockMvcResultMatchers.status().isOk());
+//
+//        Optional<Employee> foundEmployee = employeeRepository.findById(4);
+//        foundEmployee.get
+//        Assertions.assertNotEquals(employee, foundEmployee.get());
+//    }
+
+    @Test
+    public void should_delete_employee_when_delete_given_company_id() throws Exception {
+
+        //given
+
+        Company company = new Company(1,"TomAndJerry");
+        Employee employee = new Employee(5, "Tom", 18, "Male", 1000, 1);
+        companyRepository.save(company);
+        employeeRepository.save(employee);
+
+        //when
+        mockMvc.perform(MockMvcRequestBuilders.delete("/employees/{employeeID}", 1))
                 //then
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
-        Optional<Employee> foundEmployee = employeeRepository.findById(3);
-        Assertions.assertEquals("Tom", foundEmployee.get().getName());
     }
 }
