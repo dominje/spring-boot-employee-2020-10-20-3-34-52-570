@@ -30,10 +30,10 @@ public class CompanyController {
         return companyService.create(company);
     }
 
-//    @GetMapping("/{companyId}")
-//    public Company getCompanyById(@PathVariable int companyId) {
-//        return companyService.getCompanyById(companyId);
-//    }
+    @GetMapping("/{companyId}")
+    public Company getCompanyById(@PathVariable int companyId) {
+        return companyService.getCompanyById(companyId);
+    }
 //
 //    @GetMapping("/{companyId}/employees")
 //    public List<Employee> getEmployeesByCompanyId(@PathVariable int companyId) {
