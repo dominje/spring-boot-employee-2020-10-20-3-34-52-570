@@ -60,7 +60,7 @@ public class EmployeeRepository {
                 .collect(Collectors.toList());
     }
 
-    public List<Employee> setPagination(int page, int pageSize) {
+    public List<Employee> getEmployeesWithPagination(int page, int pageSize) {
         return employeeList.stream().sorted(Comparator.comparing(Employee::getId))
                 .skip(page)
                 .limit(pageSize)

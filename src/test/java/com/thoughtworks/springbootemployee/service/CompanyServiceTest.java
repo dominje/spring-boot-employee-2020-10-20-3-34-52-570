@@ -126,7 +126,7 @@ class CompanyServiceTest {
                 .limit(pageSize)
                 .collect(Collectors.toList());
 
-        when(companyRepository.setPagination(page, pageSize)).thenReturn(expectedCompanyList);
+        when(companyRepository.getCompanyWithPagination(page, pageSize)).thenReturn(expectedCompanyList);
         CompanyService companyService = new CompanyService(companyRepository);
 
         // when

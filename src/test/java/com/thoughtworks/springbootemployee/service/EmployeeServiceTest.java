@@ -167,7 +167,7 @@ class EmployeeServiceTest {
                 .limit(pageSize)
                 .collect(Collectors.toList());
 
-        when(employeeRepository.setPagination(page, pageSize)).thenReturn(expectedEmployeeList);
+        when(employeeRepository.getEmployeesWithPagination(page, pageSize)).thenReturn(expectedEmployeeList);
         EmployeeService service = new EmployeeService(employeeRepository);
 
         // when

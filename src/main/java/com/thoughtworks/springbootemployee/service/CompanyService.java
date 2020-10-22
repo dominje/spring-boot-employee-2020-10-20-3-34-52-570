@@ -37,7 +37,7 @@ public class CompanyService {
     }
 
     public List<Company> setPagination(int page, int pageSize) {
-        return companyRepository.setPagination(page, pageSize);
+        return companyRepository.getCompanyWithPagination(page, pageSize);
     }
 
     public void deleteEmployeesByCompanyId(int companyId) {
