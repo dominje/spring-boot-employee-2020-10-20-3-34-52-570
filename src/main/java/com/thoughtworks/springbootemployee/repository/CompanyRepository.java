@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @Repository
 public class CompanyRepository {
     private final List<Company> companyList = new ArrayList<>();
+    EmployeeRepository employeeRepository = new EmployeeRepository();
 
     public CompanyRepository() {
         companyList.add(new Company(1, "Toyota"));
@@ -49,13 +50,12 @@ public class CompanyRepository {
     }
 
     public List<Employee> getEmployeesByCompanyId(int companyId) {
-        EmployeeRepository employeeRepository = new EmployeeRepository();
         return employeeRepository.findAll().stream()
                 .filter(employee -> employee.getCompanyId()==companyId)
                 .collect(Collectors.toList());
     }
 
-    public List<Company> setPagination(int page, int pageSize) {
+    public List<Company> getCompanyWithPagination(int page, int pageSize) {
         return companyList.stream()
                 .sorted(Comparator.comparing(Company::getCompanyId))
                 .skip(page)
@@ -64,7 +64,6 @@ public class CompanyRepository {
     }
 
     public void deleteEmployeesByCompanyId(int companyId) {
-        EmployeeRepository employeeRepository = new EmployeeRepository();
         getEmployeesByCompanyId(companyId).forEach(employee -> employeeRepository.deleteById(employee.getId()));
     }
 }
