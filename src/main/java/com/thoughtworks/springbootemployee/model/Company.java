@@ -21,7 +21,6 @@ public class Company {
     }
 
     public Company(String companyName) {
-//        this.companyId = companyId;
         this.companyName = companyName;
     }
 

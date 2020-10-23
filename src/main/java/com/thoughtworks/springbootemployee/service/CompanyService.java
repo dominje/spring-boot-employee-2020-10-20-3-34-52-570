@@ -35,7 +35,6 @@ public class CompanyService {
     public Company updateByCompanyId(int companyId, Company company) {
         Optional<Company> updatedCompany = companyRepository.findById(companyId);
         if(updatedCompany.isPresent()){
-            updatedCompany.get().setCompanyId(company.getCompanyId());
             updatedCompany.get().setCompanyName(company.getCompanyName());
             return companyRepository.save(updatedCompany.get());
         }
@@ -51,7 +50,7 @@ public class CompanyService {
         Pageable pageable = PageRequest.of(page - 1, pageSize);
         return companyRepository.findAll(pageable).toList();
     }
-//
+
     public void deleteEmployeesByCompanyId(int companyId) {
         companyRepository.deleteById(companyId);
     }
