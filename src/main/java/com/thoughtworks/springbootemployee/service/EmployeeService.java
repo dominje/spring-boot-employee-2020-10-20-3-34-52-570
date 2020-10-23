@@ -59,7 +59,7 @@ public class EmployeeService {
     }
 
     public List<Employee> getEmployeesWithPagination(int page, int pageSize) {
-        Pageable pageable = PageRequest.of(page - 1, pageSize);
+        Pageable pageable = PageRequest.of(page, pageSize);
         return repository.findAll(pageable).toList();
     }
 }

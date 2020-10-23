@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -23,6 +24,7 @@ import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 public class EmployeeControllerIntegrationTest {
 
     @Autowired
@@ -34,31 +36,13 @@ public class EmployeeControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @AfterEach
-    void tearDown(){
-        employeeRepository.deleteAll();
-    }
-
     @Test
     public void should_delete_employee_when_delete_given_company_id() throws Exception {
         //given
-        String employeeAsJson = "{\n" +
-                "    \"id\": 1,\n" +
-                "    \"name\": \"Lola\",\n" +
-                "    \"age\": 18,\n" +
-                "    \"gender\": \"Female\",\n" +
-                "    \"salary\": 2000.0,\n" +
-                "    \"company_id\": 1\n" +
-                "}";
-
-        Company company = new Company(1,"TomAndJerry");
-        companyRepository.save(company);
-        mockMvc.perform(MockMvcRequestBuilders.post("/employees")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(employeeAsJson));
-
+        Company company = companyRepository.save(new Company("TomAndJerry"));
+        Employee employee = employeeRepository.save(new Employee(1, "Lola", 18, "Female", 2000, company.getCompanyId()));
         //when
-        mockMvc.perform(MockMvcRequestBuilders.delete("/employees/{employeeID}", 4))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/employees/{employeeID}", employee.getId()))
                 //then
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
@@ -67,10 +51,8 @@ public class EmployeeControllerIntegrationTest {
     public void should_get_all_employees_when_get() throws Exception {
 
         //given
-        Company company = new Company(1,"TomAndJerry");
-        Employee employee = new Employee(1, "Tom", 18, "Male", 1000, 1);
-        companyRepository.save(company);
-        employeeRepository.save(employee);
+        Company company = companyRepository.save(new Company("TomAndJerry"));
+        employeeRepository.save(new Employee(1, "Tom", 18, "Male", 1000, company.getCompanyId()));
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.get("/employees"))
@@ -96,8 +78,7 @@ public class EmployeeControllerIntegrationTest {
                 "    \"company_id\": 1\n" +
                 "}";
 
-        Company company = new Company(1,"TomAndJerry");
-        companyRepository.save(company);
+        companyRepository.save(new Company("TomAndJerry"));
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.post("/employees")
@@ -117,15 +98,19 @@ public class EmployeeControllerIntegrationTest {
     public void should_find_employee_when_get_given_employee_id() throws Exception {
 
         //given
-        Company company = new Company(1,"TomAndJerry");
-        Employee employee = new Employee(3, "Tom", 18, "Male", 1000, 1);
-        companyRepository.save(company);
-        employeeRepository.save(employee);
+        Company company = companyRepository.save(new Company("TomAndJerry"));
+        Employee employee = employeeRepository.save(new Employee(3, "Tom", 18, "Male", 1000, company.getCompanyId()));
 
         //when
-        mockMvc.perform(MockMvcRequestBuilders.get("/employees/{employeeID}",3))
+        mockMvc.perform(MockMvcRequestBuilders.get("/employees/{employeeID}",employee.getId()))
                 //then
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNumber())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Tom"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(18))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value("Male"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(1000))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.company_id").value(company.getCompanyId()));
     }
 
     @Test
@@ -140,29 +125,27 @@ public class EmployeeControllerIntegrationTest {
                 "    \"company_id\": 1\n" +
                 "}";
 
-        Company company = new Company(1,"TomAndJerry");
-        Employee employee = new Employee(4, "Tom", 18, "Male", 1000, 1);
-        companyRepository.save(company);
-        employeeRepository.save(employee);
+        Company company = companyRepository.save(new Company("TomAndJerry"));
+        Employee employee = employeeRepository.save(new Employee(4, "Tom", 18, "Male", 1000, company.getCompanyId()));
 
         //when
-        mockMvc.perform(MockMvcRequestBuilders.put("/employees/{employeeID}", 1)
+        mockMvc.perform(MockMvcRequestBuilders.put("/employees/{employeeID}", employee.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(employeeAsJson))
                 //then
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Lola"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value("Female"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(2000));
     }
 
     @Test
     public void should_find_employee_when_find_given_gender() throws Exception {
 
         //given
-        Company company = new Company(1,"TomAndJerry");
-        Employee employee1 = new Employee(6, "Tom", 18, "Male", 1000, 1);
-        Employee employee2 = new Employee(6, "Lola", 18, "Female", 1000, 1);
-        companyRepository.save(company);
-        employeeRepository.save(employee1);
-        employeeRepository.save(employee2);
+        Company company = companyRepository.save(new Company("TomAndJerry"));
+        employeeRepository.save(new Employee(6, "Tom", 18, "Male", 1000, company.getCompanyId()));
+        employeeRepository.save(new Employee(6, "Lola", 18, "Female", 1000, company.getCompanyId()));
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.get("/employees?gender=Male"))
@@ -180,30 +163,20 @@ public class EmployeeControllerIntegrationTest {
     public void should_find_employees_when_find_given_page_and_page_size() throws Exception {
 
         //given
-        Company company = new Company(1,"TomAndJerry");
-        Employee employee1 = new Employee(7, "Tom", 18, "Male", 1000, 1);
-        Employee employee2 = new Employee(7, "Lola", 18, "Female", 1000, 1);
-        Employee employee3 = new Employee(7, "Nina", 18, "Female", 1000, 1);
-        companyRepository.save(company);
-        employeeRepository.save(employee1);
-        employeeRepository.save(employee2);
-        employeeRepository.save(employee3);
+        Company company = companyRepository.save(new Company("TomAndJerry"));
+        employeeRepository.save(new Employee(7, "Tom", 18, "Male", 1000, company.getCompanyId()));
+        employeeRepository.save(new Employee(7, "Lola", 18, "Female", 1000, company.getCompanyId()));
+        Employee employee3 = employeeRepository.save(new Employee(7, "Nina", 18, "Female", 1000, company.getCompanyId()));
 
         //when
         mockMvc.perform(MockMvcRequestBuilders.get("/employees?page=1&pageSize=2"))
                 //then
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").isNumber())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Tom"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(18))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value("Male"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(1000))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].company_id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").isNumber())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("Lola"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].age").value(18))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].gender").value("Female"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].salary").value(1000))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].company_id").value(1));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(employee3.getName()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(employee3.getAge()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value(employee3.getGender()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(employee3.getSalary()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].company_id").value(employee3.getCompany_id()));
     }
 }

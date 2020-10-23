@@ -14,13 +14,13 @@ public class CompanyRepositoryLegacy {
     private final List<Company> companyList = new ArrayList<>();
     EmployeeRepositoryLegacy employeeRepositoryLegacy = new EmployeeRepositoryLegacy();
 
-    public CompanyRepositoryLegacy() {
-        companyList.add(new Company(1, "Toyota"));
-        companyList.add(new Company(2, "Mitsubishi"));
-        companyList.add(new Company(3, "Ferrari"));
-        companyList.add(new Company(4, "Apple"));
-        companyList.add(new Company(5, "Samsung"));
-    }
+//    public CompanyRepositoryLegacy() {
+//        companyList.add(new Company(1, "Toyota"));
+//        companyList.add(new Company(2, "Mitsubishi"));
+//        companyList.add(new Company(3, "Ferrari"));
+//        companyList.add(new Company(4, "Apple"));
+//        companyList.add(new Company(5, "Samsung"));
+//    }
 
     public List<Company> findAll() {
         return companyList;
